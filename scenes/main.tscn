@@ -1,0 +1,130 @@
+[gd_scene load_steps=14 format=3 uid="uid://4krb15utviwq"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_pilpw"]
+[ext_resource type="PackedScene" uid="uid://b6balxqtakyc5" path="res://scenes/enemy.tscn" id="2_8rbs0"]
+[ext_resource type="PackedScene" uid="uid://db3ul4tvf1ior" path="res://scenes/helpers.tscn" id="3_ngdky"]
+[ext_resource type="Texture2D" uid="uid://dkdvnlh3gtn71" path="res://sprites/Click_To_Protect_Title.png" id="4_el8pl"]
+[ext_resource type="Texture2D" uid="uid://txh7bvdml450" path="res://sprites/lives.png" id="5_7ewqv"]
+[ext_resource type="Texture2D" uid="uid://b1m12raps6j1p" path="res://sprites/helpers.png" id="6_fivrq"]
+[ext_resource type="PackedScene" uid="uid://vt4qwcbykb6p" path="res://scenes/hit_zone.tscn" id="7_3md4t"]
+[ext_resource type="FontFile" uid="uid://cwafxp6smar5v" path="res://Fonts/Kenney Mini Square.ttf" id="8_dvks1"]
+[ext_resource type="PackedScene" uid="uid://dqq4bqut5cpvc" path="res://scenes/round_finished.tscn" id="9_pui3q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4681o"]
+atlas = ExtResource("6_fivrq")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yqigs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4681o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eq0p5"]
+size = Vector2(75, 643)
+
+[sub_resource type="Curve2D" id="Curve2D_0ytgv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1216, 200, 0, 0, 0, 0, 1216, 584)
+}
+point_count = 2
+
+[node name="Main" type="Node"]
+script = ExtResource("1_pilpw")
+enemy = ExtResource("2_8rbs0")
+helper = ExtResource("3_ngdky")
+
+[node name="bg" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(16.4571, 10.125)
+texture = ExtResource("4_el8pl")
+
+[node name="goalRect" type="ColorRect" parent="."]
+offset_left = 64.0
+offset_top = 8.0
+offset_right = 304.0
+offset_bottom = 104.0
+color = Color(0, 0, 0, 0.266667)
+
+[node name="livesRect" type="ColorRect" parent="."]
+offset_left = 320.0
+offset_top = 8.0
+offset_right = 504.0
+offset_bottom = 104.0
+color = Color(0, 0, 0, 0.266667)
+
+[node name="lives" type="Sprite2D" parent="."]
+position = Vector2(448, 62.4)
+scale = Vector2(2.7, 2.7)
+texture = ExtResource("5_7ewqv")
+
+[node name="helperSprite" type="AnimatedSprite2D" parent="." groups=["tutorial"]]
+position = Vector2(256, 56)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_yqigs")
+
+[node name="HitZone" parent="." instance=ExtResource("7_3md4t")]
+position = Vector2(-64, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitZone"]
+position = Vector2(-39.5, 322.5)
+shape = SubResource("RectangleShape2D_eq0p5")
+debug_color = Color(0.72549, 0, 0.0313726, 0.419608)
+
+[node name="Spawn" type="Path2D" parent="."]
+curve = SubResource("Curve2D_0ytgv")
+
+[node name="SpawnPath" type="PathFollow2D" parent="Spawn"]
+position = Vector2(1216, 200)
+rotation = 1.5708
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="HarderTimer" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+
+[node name="helpers" parent="." instance=ExtResource("3_ngdky")]
+position = Vector2(1080, -71)
+
+[node name="GoalLabel" type="Label" parent="."]
+offset_left = 88.0
+offset_top = -16.0
+offset_right = 189.0
+offset_bottom = 109.0
+theme_override_colors/font_color = Color(0.298039, 0.509804, 1, 1)
+theme_override_fonts/font = ExtResource("8_dvks1")
+theme_override_font_sizes/font_size = 100
+text = "20
+"
+
+[node name="LivesLabel" type="Label" parent="."]
+offset_left = 336.0
+offset_top = -9.6
+offset_right = 399.0
+offset_bottom = 115.4
+theme_override_colors/font_color = Color(0.803922, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_dvks1")
+theme_override_font_sizes/font_size = 100
+text = "3"
+
+[node name="RoundFinished" parent="." instance=ExtResource("9_pui3q")]
+process_priority = 0
+visible = false
+
+[node name="Enemy" parent="." instance=ExtResource("2_8rbs0")]
+position = Vector2(984, -64)
+
+[connection signal="dead" from="HitZone" to="." method="_on_hit_zone_dead"]
+[connection signal="dead" from="HitZone" to="RoundFinished" method="_on_hit_zone_dead"]
+[connection signal="hit" from="HitZone" to="." method="_on_hit_zone_hit"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="HarderTimer" to="." method="_on_harder_timer_timeout"]

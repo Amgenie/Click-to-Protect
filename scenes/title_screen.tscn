@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1j6vw7esdx2s"]
+
+[ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_ssqky"]
+[ext_resource type="Texture2D" uid="uid://dkdvnlh3gtn71" path="res://sprites/Click_To_Protect_Title.png" id="2_xrcu4"]
+[ext_resource type="FontFile" uid="uid://cwafxp6smar5v" path="res://Fonts/Kenney Mini Square.ttf" id="3_jsern"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ut5rp"]
+bg_color = Color(0.988235, 0.988235, 0.988235, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ssqky")
+
+[node name="bg" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(16.4571, 10.125)
+texture = ExtResource("2_xrcu4")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 104.0
+offset_right = 920.0
+offset_bottom = 200.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ut5rp")
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 408.0
+offset_right = 912.0
+offset_bottom = 504.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ut5rp")
+
+[node name="Title" type="Label" parent="." groups=["MainMenu"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -336.0
+offset_top = -228.0
+offset_right = 334.0
+offset_bottom = -128.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_jsern")
+theme_override_font_sizes/font_size = 80
+text = "CLick To Protect"
+
+[node name="Play" type="Label" parent="." groups=["MainMenu"]]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -352.0
+offset_top = -232.0
+offset_right = 323.0
+offset_bottom = -157.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_jsern")
+theme_override_font_sizes/font_size = 60
+text = "press space to begin!"

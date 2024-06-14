@@ -1,0 +1,137 @@
+[gd_scene load_steps=11 format=3 uid="uid://bgq6xpuap4qxj"]
+
+[ext_resource type="Script" path="res://scripts/tutorial.gd" id="1_2mxt6"]
+[ext_resource type="Texture2D" uid="uid://dkdvnlh3gtn71" path="res://sprites/Click_To_Protect_Title.png" id="2_geyve"]
+[ext_resource type="Texture2D" uid="uid://cv4pl4ljyjctw" path="res://sprites/enemy.png" id="3_oyv3s"]
+[ext_resource type="Texture2D" uid="uid://b1m12raps6j1p" path="res://sprites/helpers.png" id="4_to7wg"]
+[ext_resource type="FontFile" uid="uid://cwafxp6smar5v" path="res://Fonts/Kenney Mini Square.ttf" id="5_15ckf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5rvcb"]
+bg_color = Color(0.988235, 0.988235, 0.988235, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujxet"]
+atlas = ExtResource("3_oyv3s")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tr6py"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujxet")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4681o"]
+atlas = ExtResource("4_to7wg")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_auo0l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4681o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="tutorial" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2mxt6")
+
+[node name="bg" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(16.4571, 10.125)
+texture = ExtResource("2_geyve")
+
+[node name="insPlanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 48.0
+offset_right = 1064.0
+offset_bottom = 224.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5rvcb")
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 296.0
+offset_top = 488.0
+offset_right = 784.0
+offset_bottom = 568.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5rvcb")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.231373, 0.52549, 0.215686, 1)
+
+[node name="enemySprite" type="AnimatedSprite2D" parent="." groups=["tutorial"]]
+position = Vector2(768, 304)
+rotation = -1.5708
+sprite_frames = SubResource("SpriteFrames_tr6py")
+
+[node name="enemySprite2" type="AnimatedSprite2D" parent="." groups=["tutorial"]]
+position = Vector2(616, 376)
+rotation = -1.5708
+sprite_frames = SubResource("SpriteFrames_tr6py")
+
+[node name="enemySprite3" type="AnimatedSprite2D" parent="." groups=["tutorial"]]
+position = Vector2(888, 456)
+rotation = -1.5708
+sprite_frames = SubResource("SpriteFrames_tr6py")
+
+[node name="helperSprite" type="AnimatedSprite2D" parent="." groups=["tutorial"]]
+position = Vector2(232, 456)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_auo0l")
+
+[node name="helperSprite2" type="AnimatedSprite2D" parent="." groups=["tutorial"]]
+position = Vector2(344, 320)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_auo0l")
+
+[node name="Instructions" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 56.0
+offset_right = 1064.0
+offset_bottom = 224.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("5_15ckf")
+theme_override_fonts/bold_font = ExtResource("5_15ckf")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Your goal is to let [color=blue]20[/color] circles pass through!
+Click on the triangles to defeat them or they'll hurt you!
+Let the circles pass on to make you closer to your goal!
+Protect the left side! Don't let the triangles pass!"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 304.0
+offset_top = 496.0
+offset_right = 777.0
+offset_bottom = 565.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_15ckf")
+theme_override_font_sizes/font_size = 50
+text = "Press space again"

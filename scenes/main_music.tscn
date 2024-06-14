@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3slgcqex208a"]
+
+[ext_resource type="AudioStream" uid="uid://bhw16gv4rmmrb" path="res://sounds/Juhani Junkala [Chiptune Adventures] 1. Stage 1.ogg" id="1_wn5h6"]
+
+[node name="mainMusic" type="AudioStreamPlayer"]
+stream = ExtResource("1_wn5h6")
+autoplay = true
+bus = &"Main Music"
